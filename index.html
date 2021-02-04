@@ -1,0 +1,101 @@
+<html lang="en">
+<head>
+ <title>Registration Form</title>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+ <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+ <script src="https://unpkg.com/axios/dist/axios.min.js"></script> 
+</head>
+<body>
+<h1 style="text-align:center">Assignment for VueJs, PHP and Using MYSQL</h1>
+   <br>
+<div class="container" id="app">
+    <div class="container">
+          <div class="panel panel-primary">
+            <div class="panel-heading">Registration Form</div>
+        <form class="form-horizontal">
+            <div class="panel-body">
+             
+                <div class="form-group">
+                  <label class="control-label col-sm-2">Name:</label>
+                  <div class="col-sm-5">
+                     <input class="form-control" type="text" name="name" v-model="name" >
+                  </div>
+               </div>
+
+               <div class="form-group">
+                <label class="control-label col-sm-2">Age:</label>
+                <div class="col-sm-5">
+                   <input class="form-control" type="age" name="age" v-model="age">
+                </div>
+             </div>
+
+                <div class="form-group">
+                  <label class="control-label col-sm-2">Email:</label>
+                  <div class="col-sm-5">
+                     <input class="form-control" type="email" name="email" v-model="email">
+                  </div>
+               </div>
+               
+                <div class="form-group">
+                  <label class="control-label col-sm-2">Mobno:</label>
+                  <div class="col-sm-5">
+                     <input class="form-control" type="email" name="phone" v-model="phone">
+                  </div>
+               </div>
+               
+                <div class="form-group">
+                  <label class="control-label col-sm-2">  </label>
+                  <div class="col-sm-5">
+                     <button  @click='submitForm();' class="btn btn-primary" name="submit"  type="button">Submit</button>
+                  </div>
+               </div>      
+             
+           </div>      
+         
+  </form>
+  </div> 
+   </div>  
+ </div> 
+
+ <script>
+
+    const app = new Vue({
+      el: '#app',
+      data: {
+         name: '',
+         email: '',
+         phone: '',
+         age:''
+      },
+       methods:{
+                       submitForm: function(){
+                     
+                         if(this.name != '' && this.email!='' && this.age!='' && this.phone!=''){
+                            axios.post('insert.php', {
+                                name: this.name,
+                                email:this.email,
+                                phone:this.phone,
+                                age: this.age
+                            })
+                            .then(function (response) {
+                                console.log(response);
+                                if(response.status==200){
+                                
+                                    alert('Data saved successfully');
+                                } 
+                                 
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
+                        }else{
+                            alert('Please enter all fileds');
+                        }                    
+                    }
+      }  
+    })
+    </script>
+    </body>
+    </html>
